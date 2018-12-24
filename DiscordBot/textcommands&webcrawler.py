@@ -66,14 +66,14 @@ async def on_message(message):
 
 
 
-    if message.content.startswith('web crawler'):
-        await client.send_message(message.channel, 'yes master -computeing')
-        async def roman_spider(max_pages):
+    if message.content.startswith('!webcrawler'):
+        await client.send_message(message.channel, 'yes master searching craigslist for computers')
+        async def spider(max_pages):
             page = 1
             while page <= max_pages:
-                url = "https://cleveland.craigslist.org/search/w4m?s=" + str(page)
+                url = "https://cleveland.craigslist.org/search/sya?s=" + str(page)
                 source_code = requests.get(url)
-                # just THE JUCY get the code, no headers
+                # just the code, no headers
                 plain_text = source_code.text
                 # BeautifulSoup objects
                 soup = BeautifulSoup(plain_text,"html.parser")
@@ -85,7 +85,7 @@ async def on_message(message):
                     # get_single_item_data(href)
                 page += 1
 
-        await roman_spider(200)
+        await spider(200)
         async def get_single_item_data(item_url):
             source_code = requests.get(item_url)
             plain_text = source_code.text
